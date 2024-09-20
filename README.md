@@ -1,2 +1,2 @@
 # rocketBlink
-A blockchain rocket game.
+A blockchain rocket game integrated using BLINKS.
