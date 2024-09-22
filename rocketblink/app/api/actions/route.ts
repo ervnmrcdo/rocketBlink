@@ -6,9 +6,9 @@ export const GET = async () => {
 
 	const payload: ActionGetResponse = {
 		title: "Rocket Blink",
-		icon: "",
-		description: "",
-		label: "",
+		icon: "https://upload.wikimedia.org/wikipedia/commons/0/04/Le_Voyage_dans_la_lune.jpg",
+		description: "To the MOON!",
+		label: "Play",
 	}
 
 	return Response.json(payload, {
@@ -24,7 +24,7 @@ export const POST = async (req: Request) => {
 
 
 	const fromPubkey = new PublicKey(body.account);
-	const toPubkey = new PublicKey("WALLET_ADDRESS");
+	const toPubkey = new PublicKey("7AiCz3SEtk45dFQxzziFUS3SJEQFtNB4TzuG4QzjqXAh");
 	const connection = new Connection(clusterApiUrl("devnet"));
 
 	const tx = new Transaction();
@@ -46,10 +46,9 @@ export const POST = async (req: Request) => {
 	const payload: ActionPostResponse = await createPostResponse({
 		fields: {
 			transaction: tx,
-			message: `Sent 1 SOL`,
-		},
-	}
-	);
+			message: "Sent 1 SOL",
+		}
+	});
 
 	return Response.json(payload, {
 		headers: ACTIONS_CORS_HEADERS,
