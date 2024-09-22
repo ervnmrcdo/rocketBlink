@@ -9,6 +9,29 @@ export const GET = async () => {
 		icon: "https://upload.wikimedia.org/wikipedia/commons/0/04/Le_Voyage_dans_la_lune.jpg",
 		description: "To the MOON!",
 		label: "Play",
+		links: {
+			actions: [
+
+				{
+					label: "Blast Off",
+					href: "api/",
+				},
+				{
+					label: "Eject",
+					href: "api/",
+				},
+				{
+					label: "Play",
+					href: "api/",
+					parameters: [
+						{
+							name: "amount",
+							label: "Amount to play with in SOL"
+						}
+					]
+				},
+			]
+		}
 	}
 
 	return Response.json(payload, {
