@@ -1,4 +1,4 @@
-import { ActionGetResponse, ActionPostRequest, ActionPostResponse, ACTIONS_CORS_HEADERS, createPostResponse, ActionError } from "@solana/actions";
+import { Action, ActionGetResponse, ActionPostRequest, ACTIONS_CORS_HEADERS, } from "@solana/actions";
 import { clusterApiUrl, Connection, Keypair, LAMPORTS_PER_SOL, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
 
 
@@ -6,12 +6,12 @@ export const GET = async (req: Request) => {
 
 
 	const requestUrl = new URL(req.url);
-	const multiplier = 1.1;
+	// const multiplier = 1.1;
 	const payload: ActionGetResponse = {
 		title: "Rocket Blink",
 		icon: new URL("/stage1.jpg", requestUrl.origin).toString(),
 		description:
-			"Multiplier: 1.1x\nEject = withdraw now \n Continue = increase multiplier\n",
+			"Multiplier: 1.1x\nEject = withdraw now \nContinue = increase multiplier\n",
 		label: "Stage_1",
 		links: {
 			actions: [
@@ -61,18 +61,40 @@ export const POST = async (req: Request) => {
 		await connection.getLatestBlockhash()
 	).blockhash;
 
-	const payload: ActionPostResponse = await createPostResponse({
-		fields: {
-			transaction: tx,
-			message: "Paid 0.5 SOL",
-			links: {
-				next: {
-					type: "post",
-					href: "api/actions/playing-action"
-				}
-			}
-		}
-	});
+	const requestUrl = new URL(req.url);
+
+	const payload: Action = {
+		type: "action",
+		title: "Rocket Blink",
+		icon: new URL("/stage1.jpg", requestUrl.origin).toString(),
+		description:
+			"Multiplier: 1.1x\nEject = withdraw now \n Continue = increase multiplier\n",
+		label: "Stage_1",
+		links: {
+			actions: [
+
+				{
+					label: "Continue",
+					href: "/api/actions",
+				},
+				{
+					label: "Eject",
+					href: "/api/actions",
+				},
+			],
+		},
+
+		// fields: {
+		// 	transaction: tx,
+		// 	message: "Paid 0.5 SOL",
+		// 	links: {
+		// 		next: {
+		// 			type: "post",
+		// 			href: "api/actions/playing-action"
+		// 		}
+		// 	}
+		// }
+	};
 
 	return Response.json(payload, {
 		headers: ACTIONS_CORS_HEADERS,

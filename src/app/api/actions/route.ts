@@ -1,6 +1,5 @@
-import { ActionGetResponse, ActionPostRequest, ActionPostResponse, ACTIONS_CORS_HEADERS, createPostResponse, ActionError } from "@solana/actions";
-import { clusterApiUrl, Connection, LAMPORTS_PER_SOL, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
-import { DEFAULT_SOL_ADDRESS, DEFAULT_SOL_AMOUNT } from "./const";
+import { ActionGetResponse, ActionPostRequest, ActionPostResponse, ACTIONS_CORS_HEADERS, createPostResponse, } from "@solana/actions";
+import { clusterApiUrl, Connection, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
 
 
 export const GET = async (req: Request) => {
@@ -48,7 +47,7 @@ export const GET = async (req: Request) => {
 export const OPTIONS = GET;
 
 export const POST = async (req: Request) => {
-	const requestUrl = new URL(req.url);
+	// const requestUrl = new URL(req.url);
 	// const { amount, toPubkey } = validatedQueryParams(requestUrl);
 	const body: ActionPostRequest = await req.json();
 
@@ -80,7 +79,7 @@ export const POST = async (req: Request) => {
 			links: {
 				next: {
 					type: "post",
-					href: "/api/actions/stage1-action"
+					href: "/api/actions/stage1-action",
 				}
 			}
 		}
