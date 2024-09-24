@@ -6,15 +6,14 @@ import { DEFAULT_SOL_ADDRESS, DEFAULT_SOL_AMOUNT } from "./const";
 export const GET = async (req: Request) => {
 
 
-	// try {
 	const requestUrl = new URL(req.url);
 	// const { toPubkey } = validatedQueryParams(requestUrl);
-
+	//
 	// const baseHref = new URL(
 	// 	`/api/actions?to=${toPubkey.toBase58()}`,
 	// 	requestUrl.origin,
 	// ).toString();
-	//
+
 	const payload: ActionGetResponse = {
 		title: "Rocket Blink",
 		icon: new URL("/rocket.png", requestUrl.origin).toString(),
@@ -25,13 +24,9 @@ export const GET = async (req: Request) => {
 
 				{
 					label: "Blast Off",
-					href: "api/actions"
-					// href: `${baseHref}&amount=${"0.05"}`,
+					href: "/api/actions",
 				},
-				{
-					label: "Eject",
-					href: "api/",
-				},
+
 			]
 		}
 	}
@@ -50,7 +45,7 @@ export const GET = async (req: Request) => {
 }
 
 
-export const OPTONS = GET;
+export const OPTIONS = GET;
 
 export const POST = async (req: Request) => {
 	const requestUrl = new URL(req.url);
@@ -81,7 +76,11 @@ export const POST = async (req: Request) => {
 	const payload: ActionPostResponse = await createPostResponse({
 		fields: {
 			transaction: tx,
-			message: "Sent 1 SOL",
+			message: "Paid 0.5 SOL",
+			links: {
+
+
+			}
 		}
 	});
 
@@ -91,30 +90,4 @@ export const POST = async (req: Request) => {
 	});
 }
 
-function validatedQueryParams(requestUrl: URL) {
-	let toPubkey: PublicKey = DEFAULT_SOL_ADDRESS;
-	let amount: number = DEFAULT_SOL_AMOUNT;
 
-	try {
-		if (requestUrl.searchParams.get("to")) {
-			toPubkey = new PublicKey(requestUrl.searchParams.get("to")!);
-		}
-	} catch (err) {
-		throw "Invalid input query parameter: to";
-	}
-
-	try {
-		if (requestUrl.searchParams.get("amount")) {
-			amount = parseFloat(requestUrl.searchParams.get("amount")!);
-		}
-
-		if (amount <= 0) throw "amount is too small";
-	} catch (err) {
-		throw "Invalid input query parameter: amount";
-	}
-
-	return {
-		amount,
-		toPubkey,
-	};
-}
