@@ -65,7 +65,7 @@ export const POST = async (req: Request) => {
 		SystemProgram.transfer({
 			fromPubkey: fromPubkey,
 			toPubkey: toPubkey,
-			lamports: 0.5 * LAMPORTS_PER_SOL
+			lamports: await connection.getMinimumBalanceForRentExemption(0),
 		})
 	);
 
@@ -80,7 +80,7 @@ export const POST = async (req: Request) => {
 			links: {
 				next: {
 					type: "post",
-					href: "api/actions/playing-action"
+					href: "/api/actions/stage1-action"
 				}
 			}
 		}

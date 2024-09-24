@@ -6,30 +6,36 @@ export const GET = async (req: Request) => {
 
 
 	const requestUrl = new URL(req.url);
+	const multiplier = 1.1;
 	const payload: ActionGetResponse = {
 		title: "Rocket Blink",
-		icon: new URL("/rocket.png", requestUrl.origin).toString(),
-		description: "To the MOON!",
-		label: "Play",
+		icon: new URL("/stage1.jpg", requestUrl.origin).toString(),
+		description:
+			"Multiplier: 1.1x\nEject = withdraw now \n Continue = increase multiplier\n",
+		label: "Stage_1",
 		links: {
 			actions: [
 
 				{
-					label: "Blast Off",
+					label: "Continue",
 					href: "/api/actions",
 				},
-
-			]
-		}
+				{
+					label: "Eject",
+					href: "/api/actions",
+				},
+			],
+		},
 	}
 
 	return Response.json(payload, {
 		headers: ACTIONS_CORS_HEADERS,
 	});
-}
+};
 
 
 export const OPTIONS = GET;
+// export const OPTIONS = async () => Response.json(null, ACTIONS_CORS_HEADERS);
 
 export const POST = async (req: Request) => {
 	const body: ActionPostRequest = await req.json();
@@ -46,7 +52,7 @@ export const POST = async (req: Request) => {
 	tx.add(
 		SystemProgram.transfer({
 			fromPubkey: fromPubkey,
-			toPubkey: toPubkey,
+			toPubkey: toPubkey.publicKey,
 			lamports: 0.5 * LAMPORTS_PER_SOL
 		})
 	);
@@ -76,4 +82,4 @@ export const POST = async (req: Request) => {
 
 
 
-}
+
