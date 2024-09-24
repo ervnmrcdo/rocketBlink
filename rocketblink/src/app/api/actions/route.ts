@@ -17,7 +17,7 @@ export const GET = async (req: Request) => {
 	//
 	const payload: ActionGetResponse = {
 		title: "Rocket Blink",
-		icon: new URL("public/rocket.jpg", requestUrl.origin).toString(),
+		icon: new URL("/rocket.png", requestUrl.origin).toString(),
 		description: "To the MOON!",
 		label: "Play",
 		links: {
