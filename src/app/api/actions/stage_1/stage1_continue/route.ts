@@ -17,7 +17,7 @@ export const POST = async (req: Request) => {
 
 
 	const fromPubkey = new PublicKey(body.account);
-	const toPubkey = new PublicKey("G24nEUyiBhmrEMbnsa82DQyoSvHuDsoJeSRRxiVbyFdZ")
+	const toPubkey = new PublicKey(process.env.RB_PUBLIC_KP ?? "")
 	const connection = new Connection(clusterApiUrl("devnet"));
 
 	const tx = new Transaction();
