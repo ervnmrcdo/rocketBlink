@@ -1,4 +1,4 @@
-import { Action, ActionError, ActionGetResponse, ActionPostRequest, ActionPostResponse, ACTIONS_CORS_HEADERS, CompletedAction, createActionHeaders, createPostResponse, } from "@solana/actions";
+import { ActionError, ActionPostRequest, ACTIONS_CORS_HEADERS, CompletedAction, createActionHeaders, } from "@solana/actions";
 import { clusterApiUrl, Connection, Keypair, LAMPORTS_PER_SOL, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
 
 
@@ -48,19 +48,6 @@ export const POST = async (req: Request) => {
 			`You have now completed an action chain! ` +
 			`Here was the signature from the last action's transaction:  `,
 	};
-	// const payload: ActionPostResponse = await createPostResponse({
-	// 	fields: {
-	// 		transaction: tx,
-	// 		message: "Paid 0.5 SOL",
-	// 		links: {
-	// 			next: {
-	// 				type: "post",
-	// 				href: "api/actions/playing-action"
-	// 			}
-	// 		}
-	// 	},
-	// });
-	//
 	return Response.json(payload, {
 		headers: ACTIONS_CORS_HEADERS,
 	});

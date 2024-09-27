@@ -1,5 +1,4 @@
-import { Action, ActionError, ActionPostRequest, ACTIONS_CORS_HEADERS, createActionHeaders, } from "@solana/actions";
-import { clusterApiUrl, Connection, Keypair, LAMPORTS_PER_SOL, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
+import { Action, ActionError, ACTIONS_CORS_HEADERS, createActionHeaders, } from "@solana/actions";
 
 
 const headers = createActionHeaders();
