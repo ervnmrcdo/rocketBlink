@@ -17,6 +17,10 @@ export const OPTIONS = async () => Response.json(null, { headers });
 export const POST = async (req: Request) => {
 
 
+	const NEXT_STAGE = successProbability(1, 100);
+
+	console.log(NEXT_STAGE)
+
 	const requestUrl = new URL(req.url);
 
 	const payload: Action = {
@@ -31,11 +35,11 @@ export const POST = async (req: Request) => {
 
 				{
 					label: "Eject",
-					href: "/api/actions/stage_1/stage1_eject",
+					href: `/api/actions/stage_1/stage1_eject`,
 				},
 				{
 					label: "Continue",
-					href: "/api/actions/win_stage",
+					href: `/api/actions/stage_1/${NEXT_STAGE}`,
 				},
 			],
 		},
@@ -44,6 +48,18 @@ export const POST = async (req: Request) => {
 	return Response.json(payload, {
 		headers: ACTIONS_CORS_HEADERS,
 	});
+}
+
+
+function successProbability(min: number, max: number): string {
+	const RANDOM_NUM: number = Math.random() * (max - min) + min;
+
+	if (RANDOM_NUM > 30) {
+		return "stage1_continue"
+	} else {
+		return "win_stage"
+	}
+
 }
 
 
