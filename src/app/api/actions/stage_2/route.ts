@@ -1,4 +1,5 @@
-import { Action, ActionError, ACTIONS_CORS_HEADERS, createActionHeaders, } from "@solana/actions";
+import { Action, ActionError, ActionPostRequest, ACTIONS_CORS_HEADERS, createActionHeaders, } from "@solana/actions";
+import { clusterApiUrl, Connection, Keypair, LAMPORTS_PER_SOL, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
 
 
 const headers = createActionHeaders();
@@ -25,16 +26,16 @@ export const POST = async (req: Request) => {
 	const payload: Action = {
 		type: "action",
 		title: "Rocket Blink",
-		icon: new URL("/stage1.jpg", requestUrl.origin).toString(),
+		icon: new URL("/stage2.jpg", requestUrl.origin).toString(),
 		description:
-			"Multiplier: 1.0x\nEject = withdraw now \nContinue = increase multiplier\n",
-		label: "Stage_1",
+			"Multiplier: 1.1x\nEject = withdraw now \nContinue = increase multiplier\n",
+		label: "Stage_2",
 		links: {
 			actions: [
 
 				{
 					label: "Eject",
-					href: `/api/actions/stage_1/stage1_eject`,
+					href: `/api/actions/stage_2/stage2_eject`,
 				},
 				{
 					label: "Continue",
@@ -53,8 +54,8 @@ export const POST = async (req: Request) => {
 function successProbability(min: number, max: number): string {
 	const RANDOM_NUM: number = Math.random() * (max - min) + min;
 
-	if (RANDOM_NUM > 30) {
-		return "stage_1/stage1_continue"
+	if (RANDOM_NUM > 99) {
+		return "stage_2/stage2_continue"
 	} else {
 		return "fail_action"
 	}
