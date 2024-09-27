@@ -56,7 +56,7 @@ function successProbability(min: number, max: number): string {
 	if (RANDOM_NUM > 30) {
 		return "stage_1/stage1_continue"
 	} else {
-		return "fail_action"
+		return "fail_action/fail_action_continue"
 	}
 
 }

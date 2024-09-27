@@ -1,6 +1,5 @@
-import { ActionError, ActionPostRequest, ACTIONS_CORS_HEADERS, CompletedAction, createActionHeaders, } from "@solana/actions";
-import { clusterApiUrl, Connection, Keypair, LAMPORTS_PER_SOL, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
-
+import { ActionPostRequest, ActionPostResponse, ACTIONS_CORS_HEADERS, createPostResponse, createActionHeaders, ActionError } from "@solana/actions";
+import { clusterApiUrl, Connection, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
 
 const headers = createActionHeaders();
 
@@ -9,17 +8,16 @@ export const GET = async (req: Request) => {
     status: 403,
     headers,
   });
-
 };
 
-
 export const OPTIONS = async () => Response.json(null, { headers });
+
 export const POST = async (req: Request) => {
   const body: ActionPostRequest = await req.json();
 
 
   const fromPubkey = new PublicKey(body.account);
-  const toPubkey = Keypair.generate();
+  const toPubkey = new PublicKey(process.env.RB_PUBLIC_KP ?? "")
   const connection = new Connection(clusterApiUrl("devnet"));
 
   const tx = new Transaction();
@@ -29,8 +27,8 @@ export const POST = async (req: Request) => {
   tx.add(
     SystemProgram.transfer({
       fromPubkey: fromPubkey,
-      toPubkey: toPubkey.publicKey,
-      lamports: 0.001 * LAMPORTS_PER_SOL
+      toPubkey: toPubkey,
+      lamports: await connection.getMinimumBalanceForRentExemption(0),
     })
   );
 
@@ -38,22 +36,23 @@ export const POST = async (req: Request) => {
     await connection.getLatestBlockhash()
   ).blockhash;
 
-  const url = new URL(req.url);
-
-  const payload: CompletedAction = {
-    type: "completed",
-    title: "The rocket blew up!",
-    icon: new URL("/win_stage.jpg", url.origin).toString(),
-    label: "Defeat!",
-    description:
-      `u ded bru`,
-  };
-
+  const payload: ActionPostResponse = await createPostResponse({
+    fields: {
+      transaction: tx,
+      message: "Continued to stage2",
+      links: {
+        next: {
+          type: "post",
+          href: "/api/actions/fail_action",
+        }
+      }
+    }
+  });
 
   return Response.json(payload, {
     headers: ACTIONS_CORS_HEADERS,
+
   });
 }
-
 
 
