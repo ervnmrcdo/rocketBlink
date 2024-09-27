@@ -39,7 +39,7 @@ export const POST = async (req: Request) => {
 				},
 				{
 					label: "Continue",
-					href: `/api/actions/stage_1/${NEXT_STAGE}`,
+					href: `/api/actions/${NEXT_STAGE}`,
 				},
 			],
 		},
@@ -54,10 +54,10 @@ export const POST = async (req: Request) => {
 function successProbability(min: number, max: number): string {
 	const RANDOM_NUM: number = Math.random() * (max - min) + min;
 
-	if (RANDOM_NUM > 30) {
-		return "stage1_continue"
+	if (RANDOM_NUM > 99) {
+		return "stage_1/stage1_continue"
 	} else {
-		return "win_stage"
+		return "fail_action"
 	}
 
 }

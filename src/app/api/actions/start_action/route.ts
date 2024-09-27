@@ -1,5 +1,5 @@
 import { ActionGetResponse, ActionPostRequest, ActionPostResponse, ACTIONS_CORS_HEADERS, createPostResponse, } from "@solana/actions";
-import { clusterApiUrl, Connection, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
+import { clusterApiUrl, Connection, LAMPORTS_PER_SOL, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
 
 
 export const GET = async (req: Request) => {
@@ -35,6 +35,7 @@ export const POST = async (req: Request) => {
 
 	const body: ActionPostRequest = await req.json();
 
+	const PLAYING_FEE: number = 0.000001
 	const toPubkey = new PublicKey(process.env.RB_PUBLIC_KP ?? "")
 	const fromPubkey = new PublicKey(body.account);
 	const connection = new Connection(clusterApiUrl("devnet"));
@@ -47,7 +48,7 @@ export const POST = async (req: Request) => {
 		SystemProgram.transfer({
 			fromPubkey: fromPubkey,
 			toPubkey: toPubkey,
-			lamports: await connection.getMinimumBalanceForRentExemption(0),
+			lamports: PLAYING_FEE * LAMPORTS_PER_SOL,
 		})
 	);
 

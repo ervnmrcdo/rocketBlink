@@ -102,8 +102,9 @@ export const POST = async (req: Request) => {
       icon: new URL("/win_stage.jpg", url.origin).toString(),
       label: "Complete!",
       description:
-        `You have now completed an action chain! ` +
-        `Here was the signature from the last action's transaction: ${signature} `,
+        `You have successfully ` +
+        `Here is the transaction signature: ` +
+        `${signature}`,
     };
 
     return Response.json(payload, {

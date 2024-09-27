@@ -16,9 +16,9 @@ export const OPTIONS = async () => Response.json(null, { headers });
 export const POST = async (req: Request) => {
 	const body: ActionPostRequest = await req.json();
 
-	const RB_KP = Keypair.fromSecretKey(bs58.decode(process.env.RP_SK ?? ""))
-	const fromPubkey = RB_KP.publicKey
-	const toPubkey = new PublicKey(body.account)
+	const RB_KP = Keypair.fromSecretKey(bs58.decode(process.env.RP_SK ?? ""));
+	const fromPubkey = RB_KP.publicKey;
+	const toPubkey = new PublicKey(body.account);
 	const connection = new Connection(clusterApiUrl("devnet"));
 
 	const tx = new Transaction();
@@ -36,6 +36,8 @@ export const POST = async (req: Request) => {
 	tx.recentBlockhash = (
 		await connection.getLatestBlockhash()
 	).blockhash;
+
+	tx.sign(RB_KP);
 
 	const payload: ActionPostResponse = await createPostResponse({
 		fields: {
