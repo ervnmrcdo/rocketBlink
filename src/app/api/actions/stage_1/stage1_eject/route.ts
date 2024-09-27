@@ -17,11 +17,12 @@ export const POST = async (req: Request) => {
 	const body: ActionPostRequest = await req.json();
 
 	const MULTIPLIER = 1.0
-	// const PLAYING_FEE: number = 
+	const PLAYING_FEE: number = parseFloat(process.env.PLAYING_FEE ?? "") || 0;
 	const RB_KP = Keypair.fromSecretKey(bs58.decode(process.env.RP_SK ?? ""));
 	const fromPubkey = RB_KP.publicKey;
 	const toPubkey = new PublicKey(body.account);
 	const connection = new Connection(clusterApiUrl("devnet"));
+	const lamports = MULTIPLIER * PLAYING_FEE * LAMPORTS_PER_SOL;
 
 	const tx = new Transaction();
 
@@ -31,9 +32,11 @@ export const POST = async (req: Request) => {
 		SystemProgram.transfer({
 			fromPubkey: fromPubkey,
 			toPubkey: toPubkey,
-			lamports: MULTIPLIER * LAMPORTS_PER_SOL,
+			lamports,
 		})
 	);
+
+
 
 	tx.recentBlockhash = (
 		await connection.getLatestBlockhash()
