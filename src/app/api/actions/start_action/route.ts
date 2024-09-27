@@ -32,8 +32,8 @@ export const GET = async (req: Request) => {
 export const OPTIONS = GET;
 
 export const POST = async (req: Request) => {
-	const body: ActionPostRequest = await req.json();
 
+	const body: ActionPostRequest = await req.json();
 
 	const toPubkey = new PublicKey("G24nEUyiBhmrEMbnsa82DQyoSvHuDsoJeSRRxiVbyFdZ")
 	const fromPubkey = new PublicKey(body.account);

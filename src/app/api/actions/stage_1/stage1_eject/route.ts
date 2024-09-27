@@ -1,5 +1,5 @@
-import { ActionPostResponse, ACTIONS_CORS_HEADERS, createPostResponse, createActionHeaders, ActionError, PostNextActionLink, NextActionPostRequest } from "@solana/actions";
-import { clusterApiUrl, Connection, Keypair, LAMPORTS_PER_SOL, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
+import { ActionPostRequest, ActionPostResponse, ACTIONS_CORS_HEADERS, createPostResponse, createActionHeaders, ActionError } from "@solana/actions";
+import { clusterApiUrl, Connection, Keypair, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
 import bs58 from "bs58";
 
 const headers = createActionHeaders();
@@ -14,24 +14,22 @@ export const GET = async (req: Request) => {
 export const OPTIONS = async () => Response.json(null, { headers });
 
 export const POST = async (req: Request) => {
-	const body: NextActionPostRequest = await req.json();
+	const body: ActionPostRequest = await req.json();
 
-	console.log("body:", body);
-
-	const ROCKETBLINK_KP = Keypair.fromSecretKey(bs58.decode("36yjjoLKbfLUSjS85koMXTAU8rUsJQuBzKLeKYXSFat6ixg32jyc3GViKknQxmrKQgHiP9qjeVzgUWauVGNawrzs"))
+	const RB_KP = Keypair.fromSecretKey(bs58.decode(process.env.RP_SK ?? ""))
+	const fromPubkey = RB_KP.publicKey
 	const toPubkey = new PublicKey(body.account)
-	const fromPubkey = ROCKETBLINK_KP.publicKey
 	const connection = new Connection(clusterApiUrl("devnet"));
 
 	const tx = new Transaction();
 
-	tx.feePayer = fromPubkey;
+	tx.feePayer = toPubkey;
 
 	tx.add(
 		SystemProgram.transfer({
 			fromPubkey: fromPubkey,
 			toPubkey: toPubkey,
-			lamports: 0.000369 * LAMPORTS_PER_SOL,
+			lamports: await connection.getMinimumBalanceForRentExemption(0),
 		})
 	);
 
@@ -39,12 +37,10 @@ export const POST = async (req: Request) => {
 		await connection.getLatestBlockhash()
 	).blockhash;
 
-
-
 	const payload: ActionPostResponse = await createPostResponse({
 		fields: {
 			transaction: tx,
-			message: "Paid 0.000369 SOL",
+			message: "Continued to stage2",
 			links: {
 				next: {
 					type: "post",
@@ -53,7 +49,6 @@ export const POST = async (req: Request) => {
 			}
 		}
 	});
-
 
 	return Response.json(payload, {
 		headers: ACTIONS_CORS_HEADERS,
