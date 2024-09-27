@@ -89,21 +89,14 @@ export const POST = async (req: Request) => {
 
     console.log("transaction: ", transaction);
 
-    /**
-     * returning a `CompletedAction` allows you to update the
-     * blink metadata but not allow the user to perform any
-     * follow on actions or user input
-     *
-     * you can update any of these details
-     */
     const payload: CompletedAction = {
       type: "completed",
       title: "Ejected Successfully!",
       icon: new URL("/win_stage.jpg", url.origin).toString(),
       label: "Complete!",
       description:
-        `You have successfully ` +
-        `Here is the transaction signature: ` +
+        `\n\n                          You have successfully withdrawn. \n\n` +
+        `                          Here is the transaction signature: \n\n ` +
         `${signature}`,
     };
 
