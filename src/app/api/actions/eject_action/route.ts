@@ -87,7 +87,6 @@ export const POST = async (req: Request) => {
       "confirmed",
     );
 
-    console.log("transaction: ", transaction);
 
     const payload: CompletedAction = {
       type: "completed",

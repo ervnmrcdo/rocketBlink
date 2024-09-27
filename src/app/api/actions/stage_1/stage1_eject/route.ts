@@ -1,7 +1,6 @@
 import { ActionPostRequest, ActionPostResponse, ACTIONS_CORS_HEADERS, createPostResponse, createActionHeaders, ActionError, NextActionPostRequest } from "@solana/actions";
 import { clusterApiUrl, Connection, Keypair, LAMPORTS_PER_SOL, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
 import bs58 from "bs58";
-import { takeCoverage } from "v8";
 
 const headers = createActionHeaders();
 
@@ -17,6 +16,8 @@ export const OPTIONS = async () => Response.json(null, { headers });
 export const POST = async (req: Request) => {
 	const body: ActionPostRequest = await req.json();
 
+	const MULTIPLIER = 1.0
+	// const PLAYING_FEE: number = 
 	const RB_KP = Keypair.fromSecretKey(bs58.decode(process.env.RP_SK ?? ""));
 	const fromPubkey = RB_KP.publicKey;
 	const toPubkey = new PublicKey(body.account);
@@ -30,7 +31,7 @@ export const POST = async (req: Request) => {
 		SystemProgram.transfer({
 			fromPubkey: fromPubkey,
 			toPubkey: toPubkey,
-			lamports: await connection.getMinimumBalanceForRentExemption(0),
+			lamports: MULTIPLIER * LAMPORTS_PER_SOL,
 		})
 	);
 
