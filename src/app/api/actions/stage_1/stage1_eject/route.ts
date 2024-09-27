@@ -1,6 +1,7 @@
-import { ActionPostRequest, ActionPostResponse, ACTIONS_CORS_HEADERS, createPostResponse, createActionHeaders, ActionError } from "@solana/actions";
-import { clusterApiUrl, Connection, Keypair, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
+import { ActionPostRequest, ActionPostResponse, ACTIONS_CORS_HEADERS, createPostResponse, createActionHeaders, ActionError, NextActionPostRequest } from "@solana/actions";
+import { clusterApiUrl, Connection, Keypair, LAMPORTS_PER_SOL, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
 import bs58 from "bs58";
+import { takeCoverage } from "v8";
 
 const headers = createActionHeaders();
 
@@ -16,9 +17,9 @@ export const OPTIONS = async () => Response.json(null, { headers });
 export const POST = async (req: Request) => {
 	const body: ActionPostRequest = await req.json();
 
-	const RB_KP = Keypair.fromSecretKey(bs58.decode(process.env.RP_SK ?? ""))
-	const fromPubkey = RB_KP.publicKey
-	const toPubkey = new PublicKey(body.account)
+	const RB_KP = Keypair.fromSecretKey(bs58.decode(process.env.RP_SK ?? ""));
+	const fromPubkey = RB_KP.publicKey;
+	const toPubkey = new PublicKey(body.account);
 	const connection = new Connection(clusterApiUrl("devnet"));
 
 	const tx = new Transaction();
@@ -37,10 +38,13 @@ export const POST = async (req: Request) => {
 		await connection.getLatestBlockhash()
 	).blockhash;
 
+	tx.sign(RB_KP);
+
+
 	const payload: ActionPostResponse = await createPostResponse({
 		fields: {
 			transaction: tx,
-			message: "Continued to stage2",
+			message: "Successfully ejected!",
 			links: {
 				next: {
 					type: "post",
