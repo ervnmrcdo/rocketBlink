@@ -35,7 +35,7 @@ export const POST = async (req: Request) => {
 
 	const body: ActionPostRequest = await req.json();
 
-	const toPubkey = new PublicKey("G24nEUyiBhmrEMbnsa82DQyoSvHuDsoJeSRRxiVbyFdZ")
+	const toPubkey = new PublicKey(process.env.RB_PUBLIC_KP ?? "")
 	const fromPubkey = new PublicKey(body.account);
 	const connection = new Connection(clusterApiUrl("devnet"));
 
