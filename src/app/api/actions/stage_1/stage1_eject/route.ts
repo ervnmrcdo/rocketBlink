@@ -1,6 +1,7 @@
-import { ActionPostRequest, ActionPostResponse, ACTIONS_CORS_HEADERS, createPostResponse, createActionHeaders, ActionError } from "@solana/actions";
-import { clusterApiUrl, Connection, Keypair, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
+import { ActionPostRequest, ActionPostResponse, ACTIONS_CORS_HEADERS, createPostResponse, createActionHeaders, ActionError, NextActionPostRequest } from "@solana/actions";
+import { clusterApiUrl, Connection, Keypair, LAMPORTS_PER_SOL, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
 import bs58 from "bs58";
+import { takeCoverage } from "v8";
 
 const headers = createActionHeaders();
 
@@ -39,10 +40,11 @@ export const POST = async (req: Request) => {
 
 	tx.sign(RB_KP);
 
+
 	const payload: ActionPostResponse = await createPostResponse({
 		fields: {
 			transaction: tx,
-			message: "Continued to stage2",
+			message: "Successfully ejected!",
 			links: {
 				next: {
 					type: "post",
