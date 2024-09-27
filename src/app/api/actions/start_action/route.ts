@@ -36,8 +36,8 @@ export const POST = async (req: Request) => {
 	const body: ActionPostRequest = await req.json();
 
 	const PLAYING_FEE: number = 0.000001
-	const toPubkey = new PublicKey(process.env.RB_PUBLIC_KP ?? "")
 	const fromPubkey = new PublicKey(body.account);
+	const toPubkey = new PublicKey(process.env.RB_PUBLIC_KP ?? "");
 	const connection = new Connection(clusterApiUrl("devnet"));
 
 	const tx = new Transaction();
@@ -55,6 +55,7 @@ export const POST = async (req: Request) => {
 	tx.recentBlockhash = (
 		await connection.getLatestBlockhash()
 	).blockhash;
+
 
 	const payload: ActionPostResponse = await createPostResponse({
 		fields: {
