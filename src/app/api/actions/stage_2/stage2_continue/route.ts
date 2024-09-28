@@ -39,11 +39,11 @@ export const POST = async (req: Request) => {
 	const payload: ActionPostResponse = await createPostResponse({
 		fields: {
 			transaction: tx,
-			message: "Continued to stage2",
+			message: "Continued to stage3",
 			links: {
 				next: {
 					type: "post",
-					href: "/api/actions/win_stage",
+					href: "/api/actions/stage_3",
 				}
 			}
 		}

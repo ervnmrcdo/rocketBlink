@@ -1,5 +1,6 @@
-import { ActionPostRequest, ActionPostResponse, ACTIONS_CORS_HEADERS, createPostResponse, createActionHeaders, ActionError } from "@solana/actions";
-import { clusterApiUrl, Connection, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
+import { ActionPostRequest, ActionPostResponse, ACTIONS_CORS_HEADERS, createPostResponse, createActionHeaders, ActionError, } from "@solana/actions";
+import { clusterApiUrl, Connection, Keypair, LAMPORTS_PER_SOL, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
+import bs58 from "bs58";
 
 const headers = createActionHeaders();
 
@@ -15,35 +16,44 @@ export const OPTIONS = async () => Response.json(null, { headers });
 export const POST = async (req: Request) => {
 	const body: ActionPostRequest = await req.json();
 
-
-	const fromPubkey = new PublicKey(body.account);
-	const toPubkey = new PublicKey(process.env.RB_PUBLIC_KP ?? "")
+	const MULTIPLIER = 3
+	const PLAYING_FEE: number = parseFloat(process.env.PLAYING_FEE ?? "") || 0;
+	const RB_KP = Keypair.fromSecretKey(bs58.decode(process.env.RP_SK ?? ""));
+	const fromPubkey = RB_KP.publicKey;
+	const toPubkey = new PublicKey(body.account);
 	const connection = new Connection(clusterApiUrl("devnet"));
+	const lamports = MULTIPLIER * PLAYING_FEE * LAMPORTS_PER_SOL;
 
 	const tx = new Transaction();
 
-	tx.feePayer = fromPubkey;
+	tx.feePayer = toPubkey;
 
 	tx.add(
 		SystemProgram.transfer({
 			fromPubkey: fromPubkey,
 			toPubkey: toPubkey,
-			lamports: await connection.getMinimumBalanceForRentExemption(0),
+			lamports,
 		})
 	);
+
+	console.log(MULTIPLIER)
+
 
 	tx.recentBlockhash = (
 		await connection.getLatestBlockhash()
 	).blockhash;
 
+	tx.sign(RB_KP);
+
+
 	const payload: ActionPostResponse = await createPostResponse({
 		fields: {
 			transaction: tx,
-			message: "Continued to stage2",
+			message: "Successfully ejected!",
 			links: {
 				next: {
 					type: "post",
-					href: "/api/actions/stage_2",
+					href: "/api/actions/eject_action",
 				}
 			}
 		}
