@@ -27,7 +27,7 @@ export const POST = async (req: Request) => {
 		title: "Rocket Blink",
 		icon: new URL("/stage6.jpg", requestUrl.origin).toString(),
 		description:
-			"Multiplier: 2x\nEject = withdraw now \nContinue = increase multiplier\n",
+			"Multiplier: 1.7x\nEject = withdraw now \nContinue = increase multiplier\n",
 		label: "Stage_6",
 		links: {
 			actions: [
@@ -53,7 +53,7 @@ export const POST = async (req: Request) => {
 function successProbability(min: number, max: number): string {
 	const RANDOM_NUM: number = Math.random() * (max - min) + min;
 
-	if (RANDOM_NUM > 1) {
+	if (RANDOM_NUM > 80) {
 		return "stage_6/stage6_continue"
 	} else {
 		return "fail_action/fail_action_continue"

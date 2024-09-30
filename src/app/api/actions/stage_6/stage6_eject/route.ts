@@ -16,7 +16,7 @@ export const OPTIONS = async () => Response.json(null, { headers });
 export const POST = async (req: Request) => {
 	const body: ActionPostRequest = await req.json();
 
-	const MULTIPLIER = 2
+	const MULTIPLIER = 1.7
 	const PLAYING_FEE: number = parseFloat(process.env.PLAYING_FEE ?? "") || 0;
 	const RB_KP = Keypair.fromSecretKey(bs58.decode(process.env.RP_SK ?? ""));
 	const fromPubkey = RB_KP.publicKey;

@@ -9,7 +9,13 @@ export const GET = async (req: Request) => {
 	const payload: ActionGetResponse = {
 		title: "Rocket Blink",
 		icon: new URL("/rocket.jpg", requestUrl.origin).toString(),
-		description: "To the MOON!",
+		description: "To the MOON!\n" +
+			`\nWARNING: DO NOT RELOAD PAGE WHILE IN THE MIDDLE OF THE GAME!` +
+			`\n\nMECHANICS:` +
+			`1. Press \"Blast Off\" to start playing.` +
+			`2. The game will have a total of 8 stages.` +
+			`3. Each stage the height(multiplier) of the rocket increases.` +
+			`4. The catch is with every increase in height the risk of the rocket exploding increases.`,
 		label: "Play",
 		links: {
 			actions: [
