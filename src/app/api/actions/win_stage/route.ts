@@ -42,7 +42,7 @@ export const POST = async (req: Request) => {
 	const payload: CompletedAction = {
 		type: "completed",
 		title: "You made it to the MOON!",
-		icon: new URL("/win_stage.jpg", new URL(req.url).origin).toString(),
+		icon: new URL("/win_stage.png", new URL(req.url).origin).toString(),
 		label: "Complete!",
 		description:
 			`You have now completed an action chain! ` +

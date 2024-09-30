@@ -25,7 +25,7 @@ export const POST = async (req: Request) => {
 	const payload: Action = {
 		type: "action",
 		title: "Rocket Blink",
-		icon: new URL("/stage5.jpg", requestUrl.origin).toString(),
+		icon: new URL("/stage5.png", requestUrl.origin).toString(),
 		description:
 			"Eject = withdraw now \nContinue = increase multiplier\n",
 		label: "Stage_5",

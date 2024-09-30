@@ -42,11 +42,11 @@ export const POST = async (req: Request) => {
 
   const payload: CompletedAction = {
     type: "completed",
-    title: "The rocket blew up!",
-    icon: new URL("/win_stage.jpg", url.origin).toString(),
+    title: "Oh no!",
+    icon: new URL("/explosion.gif", url.origin).toString(),
     label: "Defeat!",
     description:
-      `u ded bru`,
+      `The rocket blew up! GG`,
   };
 
 
