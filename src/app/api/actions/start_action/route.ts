@@ -14,7 +14,7 @@ export const GET = async (req: Request) => {
 			`\n\nMECHANICS:` +
 			`\n1. Press \"Blast Off\" to start playing.` +
 			`\n2. The game will have a total of 8 stages.` +
-			`\n3. Each stage the height(multiplier) of the rocket increases.` +
+			`\n3. Each stage the height of the rocket increases.` +
 			`\n4. The catch is with every increase in height the risk of the rocket exploding increases.`,
 		label: "Play",
 		links: {

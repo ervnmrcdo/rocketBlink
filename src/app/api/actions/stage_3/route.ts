@@ -27,7 +27,7 @@ export const POST = async (req: Request) => {
 		title: "Rocket Blink",
 		icon: new URL("/stage3.jpg", requestUrl.origin).toString(),
 		description:
-			"Multiplier: 1.2x\nEject = withdraw now \nContinue = increase multiplier\n",
+			"Eject = withdraw now \nContinue = increase multiplier\n",
 		label: "Stage_3",
 		links: {
 			actions: [
