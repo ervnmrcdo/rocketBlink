@@ -12,10 +12,10 @@ export const GET = async (req: Request) => {
 		description: "To the MOON!\n" +
 			`\nWARNING: DO NOT RELOAD PAGE WHILE IN THE MIDDLE OF THE GAME!` +
 			`\n\nMECHANICS:` +
-			`1. Press \"Blast Off\" to start playing.` +
-			`2. The game will have a total of 8 stages.` +
-			`3. Each stage the height(multiplier) of the rocket increases.` +
-			`4. The catch is with every increase in height the risk of the rocket exploding increases.`,
+			`\n1. Press \"Blast Off\" to start playing.` +
+			`\n2. The game will have a total of 8 stages.` +
+			`\n3. Each stage the height(multiplier) of the rocket increases.` +
+			`\n4. The catch is with every increase in height the risk of the rocket exploding increases.`,
 		label: "Play",
 		links: {
 			actions: [

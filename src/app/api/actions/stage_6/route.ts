@@ -53,7 +53,8 @@ export const POST = async (req: Request) => {
 function successProbability(min: number, max: number): string {
 	const RANDOM_NUM: number = Math.random() * (max - min) + min;
 
-	if (RANDOM_NUM > 80) {
+	// if (RANDOM_NUM > 80) {
+	if (RANDOM_NUM > 1) {
 		return "stage_6/stage6_continue"
 	} else {
 		return "fail_action/fail_action_continue"
