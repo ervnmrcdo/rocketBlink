@@ -4,7 +4,7 @@ import bs58 from "bs58";
 
 const headers = createActionHeaders();
 
-export const GET = async (req: Request) => {
+export const GET = async ) => {
 	return Response.json({ message: "Method not supported" } as ActionError, {
 		status: 403,
 		headers,

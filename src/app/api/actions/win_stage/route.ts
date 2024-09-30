@@ -4,7 +4,7 @@ import { clusterApiUrl, Connection, Keypair, LAMPORTS_PER_SOL, PublicKey, System
 
 const headers = createActionHeaders();
 
-export const GET = async (req: Request) => {
+export const GET = async () => {
 	return Response.json({ message: "Method not supported" } as ActionError, {
 		status: 403,
 		headers,

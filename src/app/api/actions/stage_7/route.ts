@@ -3,7 +3,7 @@ import { Action, ActionError, ACTIONS_CORS_HEADERS, createActionHeaders, } from 
 
 const headers = createActionHeaders();
 
-export const GET = async (req: Request) => {
+export const GET = async ) => {
 	return Response.json({ message: "Method not supported" } as ActionError, {
 		status: 403,
 		headers,
