@@ -28,7 +28,7 @@ export const POST = async (req: Request) => {
 		icon: new URL("/stage3.png", requestUrl.origin).toString(),
 		description:
 			// "Eject = withdraw now \n" +
-			"Continue = go a bit further\n",
+			"Stage 3\nContinue = go a bit further\n",
 		label: "Stage_3",
 		links: {
 			actions: [
