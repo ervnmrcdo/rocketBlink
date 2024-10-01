@@ -43,8 +43,7 @@ export const POST = async (req: Request) => {
 			links: {
 				next: {
 					type: "post",
-					// href: "/api/actions/stage_5",
-					href: "/api/actions/win_stage/win_stage_claim",
+					href: "/api/actions/stage_5",
 				}
 			}
 		}
