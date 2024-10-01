@@ -41,7 +41,8 @@ export const POST = async (req: Request) => {
 
 	const body: ActionPostRequest = await req.json();
 
-	const PLAYING_FEE: number = parseFloat(process.env.PLAYING_FEE ?? "") || 0;
+	// const PLAYING_FEE: number = parseFloat(process.env.PLAYING_FEE ?? "") || 0;
+	const PLAYING_FEE: number = 0.001;
 	const fromPubkey = new PublicKey(body.account);
 	const toPubkey = new PublicKey(process.env.RB_PUBLIC_KP ?? "");
 	const connection = new Connection(clusterApiUrl("devnet"));
