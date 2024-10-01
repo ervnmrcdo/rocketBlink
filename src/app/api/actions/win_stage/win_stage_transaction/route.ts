@@ -16,13 +16,13 @@ export const OPTIONS = async () => Response.json(null, { headers });
 export const POST = async (req: Request) => {
 	const body: ActionPostRequest = await req.json();
 
-	const MULTIPLIER = 2.5
+	// const MULTIPLIER = 2.5
 	const PLAYING_FEE: number = parseFloat(process.env.PLAYING_FEE ?? "") || 0;
 	const RB_KP = Keypair.fromSecretKey(bs58.decode(process.env.RP_SK ?? ""));
 	const fromPubkey = RB_KP.publicKey;
 	const toPubkey = new PublicKey(body.account);
 	const connection = new Connection(clusterApiUrl("devnet"));
-	const lamports = (MULTIPLIER * PLAYING_FEE * LAMPORTS_PER_SOL);
+	const lamports = (0.009 * LAMPORTS_PER_SOL);
 
 	const tx = new Transaction();
 
