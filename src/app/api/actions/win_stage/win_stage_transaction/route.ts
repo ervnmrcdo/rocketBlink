@@ -17,7 +17,7 @@ export const POST = async (req: Request) => {
 	const body: ActionPostRequest = await req.json();
 
 	// const MULTIPLIER = 2.5
-	const PLAYING_FEE: number = parseFloat(process.env.PLAYING_FEE ?? "") || 0;
+	// const PLAYING_FEE: number = parseFloat(process.env.PLAYING_FEE ?? "") || 0;
 	const RB_KP = Keypair.fromSecretKey(bs58.decode(process.env.RP_SK ?? ""));
 	const fromPubkey = RB_KP.publicKey;
 	const toPubkey = new PublicKey(body.account);
@@ -36,7 +36,7 @@ export const POST = async (req: Request) => {
 		})
 	);
 
-	console.log(MULTIPLIER)
+	// console.log(MULTIPLIER)
 
 
 	tx.recentBlockhash = (
