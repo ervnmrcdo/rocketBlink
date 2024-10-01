@@ -91,7 +91,7 @@ export const POST = async (req: Request) => {
   const payload: CompletedAction = {
     type: "completed",
     title: "Ejected Successfully!",
-    icon: new URL("/win_stage.png", url.origin).toString(),
+    icon: new URL("/eject.jpg", url.origin).toString(),
     label: "Complete!",
     description:
       `\n\n                          You have successfully withdrawn. \n\n` +
