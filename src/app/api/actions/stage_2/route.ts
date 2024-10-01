@@ -54,7 +54,7 @@ function successProbability(min: number, max: number): string {
 	const RANDOM_NUM: number = Math.random() * (max - min) + min;
 
 	// if (RANDOM_NUM > 40) {
-	if (RANDOM_NUM > 99) {
+	if (RANDOM_NUM > 1) {
 		return "stage_2/stage2_continue"
 	} else {
 		return "fail_action/fail_action_continue"
