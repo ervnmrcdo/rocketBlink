@@ -45,7 +45,7 @@ export const POST = async (req: Request) => {
 		icon: new URL("/win_stage.png", new URL(req.url).origin).toString(),
 		label: "Complete!",
 		description:
-			`You have now completed an action chain! ` +
+			`You have claimed your the moon.` +
 			`Here was the signature from the last action's transaction:  `,
 	};
 	return Response.json(payload, {
