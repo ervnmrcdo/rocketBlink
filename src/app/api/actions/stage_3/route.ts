@@ -27,15 +27,16 @@ export const POST = async (req: Request) => {
 		title: "Rocket Blink",
 		icon: new URL("/stage3.png", requestUrl.origin).toString(),
 		description:
-			"Eject = withdraw now \nContinue = a little bit more\n",
+			// "Eject = withdraw now \n" +
+			"Continue = go a bit further\n",
 		label: "Stage_3",
 		links: {
 			actions: [
 
-				{
-					label: "Eject",
-					href: `/api/actions/stage_3/stage3_eject`,
-				},
+				// {
+				// 	label: "Eject",
+				// 	href: `/api/actions/stage_3/stage3_eject`,
+				// },
 				{
 					label: "Continue",
 					href: `/api/actions/${NEXT_STAGE}`,
