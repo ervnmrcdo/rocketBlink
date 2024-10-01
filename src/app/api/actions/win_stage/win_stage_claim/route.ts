@@ -31,7 +31,6 @@ export const POST = async (req: Request) => {
 		links: {
 			actions: [
 
-
 				{
 					label: "Claim",
 					href: `/api/actions/win_stage/win_stage_transaction`,
