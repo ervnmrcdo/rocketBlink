@@ -58,7 +58,7 @@ function successProbability(min: number, max: number): string {
 	const RANDOM_NUM: number = Math.random() * (max - min) + min;
 
 	// if (RANDOM_NUM > 30) {
-	if (RANDOM_NUM > 1) {
+	if (RANDOM_NUM < 60) {
 		return "stage_1/stage1_continue"
 	} else {
 		return "fail_action/fail_action_continue"
